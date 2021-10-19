@@ -567,6 +567,9 @@
     "symfony/yaml": {
         "version": "v4.4.29"
     },
+    "tecnickcom/tcpdf": {
+        "version": "6.4.2"
+    },
     "theseer/tokenizer": {
         "version": "1.2.1"
     },
@@ -578,5 +581,8 @@
     },
     "webmozart/assert": {
         "version": "1.10.0"
+    },
+    "whiteoctober/tcpdf-bundle": {
+        "version": "1.1.2"
     }
 }
