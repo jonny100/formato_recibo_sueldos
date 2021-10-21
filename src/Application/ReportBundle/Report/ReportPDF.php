@@ -31,16 +31,23 @@ class ReportPDF extends TCPDF {
      
      //Page header
     public function Header() {
-        // Logo
-//	$image_file = __DIR__.'/../../../Resources/colegiofarmaceutico.jpg';
-//        //$this->setHeaderData($image_file, 150, '', '');// 10, 10, 15, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-//        $this->Image($image_file, 30, 20, 65, 0, '', '', '', true, 150);// 10, 10, 15, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-        //
-        // Set font
-        //$this->SetFont('helvetica', '', 8);
-        // Title
-        //$txt = 'Sistema de Gestión de Legajos';
-        //$this->Cell(0, 10, $image_file, 0, false, 'R', 0, '', 0, false, 'M', 'M');
+        // get the current page break margin
+        $bMargin = $this->getBreakMargin();
+        // get current auto-page-break mode
+        $auto_page_break = $this->getAutoPageBreak();
+        // disable auto-page-break
+        $this->SetAutoPageBreak(false, 0);
+            
+        // set bacground image
+//        $img_file = $this->getParameter('kernel.project_dir') . '/public/app/images/imagencertificado.jpg';
+        $img_file = __DIR__.'/../../../../public/app/images/imagencertificado.jpg';
+//        var_dump($img_file);die();
+        $this->Image($img_file, 0, 0, 300, 210, '', '', '', false, 300, '', false, false, 0);
+        
+        // restore auto-page-break status
+        $this->SetAutoPageBreak($auto_page_break, $bMargin);
+        // set the starting point for the page content
+        $this->setPageMark();
     }
     
     // Page footer
