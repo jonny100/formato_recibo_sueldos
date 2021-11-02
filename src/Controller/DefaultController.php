@@ -26,7 +26,9 @@ class DefaultController extends Controller
     public function formatoAction(Request $request) {	
 	$form = $this->createFormBuilder()
             ->add('attachment', FileType::class, array('label' => 'TXT Recibos de sueldo', "attr" => array('class' => "form-control-file")))
-            ->add('generar', SubmitType::class, array('label' => 'Procesar', "attr" => array('class' => "btn btn-success pull-left", 'style' => 'margin-top:15px;')))
+            ->add('generarRecibos', SubmitType::class, array('label' => 'Procesar Recibos de Sueldos', "attr" => array('class' => "btn btn-success pull-left", 'style' => 'margin-top:15px;')))
+            ->add('generarLibro', SubmitType::class, array('label' => 'Procesar Libro Sueldos', "attr" => array('class' => "btn btn-success pull-left", 'style' => 'margin-top:15px;')))
+            ->add('generarAportes', SubmitType::class, array('label' => 'Procesar Aportes', "attr" => array('class' => "btn btn-success pull-left", 'style' => 'margin-top:15px;')))
             ->getForm();
         $form->handleRequest($request);
 
@@ -43,24 +45,68 @@ class DefaultController extends Controller
 
                 header('Content-type: text/plain');
                 $txt = file_get_contents($file);
+                
+                if($form->get('generarRecibos')->isClicked()){
         
-                $pdf = new ReportPDF();
-                $pdf->AddPage();
+                    $pdf = new ReportPDF();
+                    $pdf->AddPage();
 
-                $pdf->SetFont('courier', '', 9);
-                $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+                    $pdf->SetFont('courier', '', 7.2);
+                    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
-                $text = $this->renderView('\Formato\formato_recibo_sueldos.html.twig', array('texto' => $txt));
+                    $text = $this->renderView('\Formato\formato_recibo_sueldos.html.twig', array('texto' => $txt));
 
-                $pdf->Write(0, $text);
-                $file = $pdf->Output('recibos.pdf', 'S');
+                    $pdf->Write(0, $text);
+                    $file = $pdf->Output('recibos.pdf', 'S');
 
-                $response = new Response($file);
+                    $response = new Response($file);
 
-                $response->headers->set('Content-Type', 'application/pdf');
-                $response->headers->set('Content-Disposition', 'filename="recibos.pdf"');
+                    $response->headers->set('Content-Type', 'application/pdf');
+                    $response->headers->set('Content-Disposition', 'filename="recibos.pdf"');
 
-                return $response;
+                    return $response;
+                }else if($form->get('generarLibro')->isClicked()){
+        
+                    $pdf = new ReportPDF();
+                    
+                    $pdf->setPrintHeader(false); 
+                    $pdf->AddPage();
+
+                    $pdf->SetFont('courier', '', 6.6);
+                    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+                    $text = $this->renderView('\Formato\formato_recibo_sueldos.html.twig', array('texto' => $txt));
+                    
+                    $pdf->Write(0, $text);
+                    $file = $pdf->Output('recibos.pdf', 'S');
+
+                    $response = new Response($file);
+
+                    $response->headers->set('Content-Type', 'application/pdf');
+                    $response->headers->set('Content-Disposition', 'filename="recibos.pdf"');
+
+                    return $response;
+                }else if($form->get('generarAportes')->isClicked()){
+        
+                    $pdf = new ReportPDF();
+                    
+                    $pdf->setPrintHeader(false); 
+                    $pdf->AddPage();
+
+                    $pdf->SetFont('courier', '', 6.4);
+                    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+                    $text = $this->renderView('\Formato\formato_recibo_sueldos.html.twig', array('texto' => $txt));
+                    
+                    $pdf->Write(0, $text);
+                    $file = $pdf->Output('recibos.pdf', 'S');
+
+                    $response = new Response($file);
+
+                    $response->headers->set('Content-Type', 'application/pdf');
+                    $response->headers->set('Content-Disposition', 'filename="recibos.pdf"');
+
+                    return $response;
+                }
             }
 //        }
         return $this->render('\Formato\importarTxt.html.twig',

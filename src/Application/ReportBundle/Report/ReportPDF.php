@@ -3,7 +3,7 @@ namespace App\Application\ReportBundle\Report;
 use \TCPDF;
 class ReportPDF extends TCPDF {
 
-    public function __construct($orientation='L', $unit='mm', $format='A4', $unicode=true, $encoding='UTF-8', $diskcache=false, $pdfa=false) {
+    public function __construct($orientation='P', $unit='mm', $format='A4', $unicode=true, $encoding='UTF-8', $diskcache=false, $pdfa=false) {
         parent::__construct($orientation, $unit, $format, $unicode, $encoding, $diskcache, $pdfa);
         $this->setupReport();
      }
@@ -39,10 +39,8 @@ class ReportPDF extends TCPDF {
         $this->SetAutoPageBreak(false, 0);
             
         // set bacground image
-//        $img_file = $this->getParameter('kernel.project_dir') . '/public/app/images/imagencertificado.jpg';
         $img_file = __DIR__.'/../../../../public/app/images/imagen_recibo.jpg';
-//        var_dump($img_file);die();
-        $this->Image($img_file, 0, 0, 260, 188, '', '', '', false, 300, '', false, false, 0);
+        $this->Image($img_file, 0, 0, 210, 156, '', '', '', false, 300, '', false, false, 0);
         
         // restore auto-page-break status
         $this->SetAutoPageBreak($auto_page_break, $bMargin);
