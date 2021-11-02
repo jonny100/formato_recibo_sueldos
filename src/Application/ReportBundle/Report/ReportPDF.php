@@ -40,7 +40,7 @@ class ReportPDF extends TCPDF {
             
         // set bacground image
         $img_file = __DIR__.'/../../../../public/app/images/imagen_recibo.jpg';
-        $this->Image($img_file, 0, 0, 210, 156, '', '', '', false, 300, '', false, false, 0);
+        $this->Image($img_file, 8, 2, 193, 203, '', '', '', false, 300, '', false, false, 0);
         
         // restore auto-page-break status
         $this->SetAutoPageBreak($auto_page_break, $bMargin);

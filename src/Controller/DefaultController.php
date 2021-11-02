@@ -56,6 +56,8 @@ class DefaultController extends Controller
 
                     $text = $this->renderView('\Formato\formato_recibo_sueldos.html.twig', array('texto' => $txt));
 
+                    $pdf->SetMargins(8, 13);
+                    
                     $pdf->Write(0, $text);
                     $file = $pdf->Output('recibos.pdf', 'S');
 
