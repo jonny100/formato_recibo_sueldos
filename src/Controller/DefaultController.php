@@ -25,7 +25,7 @@ class DefaultController extends Controller
     
     public function formatoAction(Request $request) {	
 	$form = $this->createFormBuilder()
-            ->add('attachment', FileType::class, array('label' => 'TXT Recibos de sueldo', "attr" => array('class' => "form-control-file")))
+            ->add('attachment', FileType::class, array('label' => 'Importar TXT', "attr" => array('class' => "form-control-file")))
             ->add('generarRecibos', SubmitType::class, array('label' => 'Procesar Recibos de Sueldos', "attr" => array('class' => "btn btn-success pull-left", 'style' => 'margin-top:15px;')))
             ->add('generarLibro', SubmitType::class, array('label' => 'Procesar Libro Sueldos', "attr" => array('class' => "btn btn-success pull-left", 'style' => 'margin-top:15px;')))
             ->add('generarAportes', SubmitType::class, array('label' => 'Procesar Aportes', "attr" => array('class' => "btn btn-success pull-left", 'style' => 'margin-top:15px;')))
