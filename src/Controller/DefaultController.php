@@ -72,12 +72,15 @@ class DefaultController extends Controller
                     $pdf = new ReportPDF();
                     
                     $pdf->setPrintHeader(false); 
+                    
                     $pdf->AddPage();
 
-                    $pdf->SetFont('courier', '', 6.6);
+                    $pdf->SetFont('courier', '', 7.2);
                     $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
                     $text = $this->renderView('\Formato\formato_recibo_sueldos.html.twig', array('texto' => $txt));
+                    
+                    $pdf->SetMargins(2, 13);
                     
                     $pdf->Write(0, $text);
                     $file = $pdf->Output('recibos.pdf', 'S');
@@ -95,9 +98,11 @@ class DefaultController extends Controller
                     $pdf->setPrintHeader(false); 
                     $pdf->AddPage();
 
-                    $pdf->SetFont('courier', '', 6.4);
+                    $pdf->SetFont('courier', '', 7);
                     $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
                     $text = $this->renderView('\Formato\formato_recibo_sueldos.html.twig', array('texto' => $txt));
+                    
+                    $pdf->SetMargins(2, 13);
                     
                     $pdf->Write(0, $text);
                     $file = $pdf->Output('recibos.pdf', 'S');
